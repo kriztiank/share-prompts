@@ -62,6 +62,6 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
       </form>
     </section>
   );
-}
+};
 
-export default Form
+export default Form;
