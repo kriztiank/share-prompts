@@ -1,30 +1,30 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Image from "next/image";
-import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { useState } from 'react'
+import Image from 'next/image'
+import { useSession } from 'next-auth/react'
+import { usePathname, useRouter } from 'next/navigation'
 
 const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
-  const { data: session } = useSession();
-  const pathName = usePathname();
-  const router = useRouter();
+  const { data: session } = useSession()
+  const pathName = usePathname()
+  const router = useRouter()
 
-  const [copied, setCopied] = useState("");
+  const [copied, setCopied] = useState('')
 
   const handleProfileClick = () => {
-    console.log(post);
+    console.log(post)
 
-    if (post.creator._id === session?.user.id) return router.push("/profile");
+    if (post.creator._id === session?.user.id) return router.push('/profile')
 
-    router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
-  };
+    router.push(`/profile/${post.creator._id}?name=${post.creator.username}`)
+  }
 
   const handleCopy = () => {
-    setCopied(post.prompt);
-    navigator.clipboard.writeText(post.prompt);
-    setTimeout(() => setCopied(false), 3000);
-  };
+    setCopied(post.prompt)
+    navigator.clipboard.writeText(post.prompt)
+    setTimeout(() => setCopied(false), 3000)
+  }
 
   return (
     <div className='prompt_card'>
@@ -55,10 +55,10 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
           <Image
             src={
               copied === post.prompt
-                ? "/assets/icons/tick.svg"
-                : "/assets/icons/copy.svg"
+                ? '/assets/icons/tick.svg'
+                : '/assets/icons/copy.svg'
             }
-            alt={copied === post.prompt ? "tick_icon" : "copy_icon"}
+            alt={copied === post.prompt ? 'tick_icon' : 'copy_icon'}
             width={12}
             height={12}
           />
@@ -73,9 +73,9 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         #{post.tag}
       </p>
 
-      {session?.user.id === post.creator._id && pathName === "/profile" && (
+      {session?.user.id === post.creator._id && pathName === '/profile' && (
         <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
-          <p
+          {/* <p
             className='font-inter text-sm green_gradient cursor-pointer'
             onClick={handleEdit}
           >
@@ -86,11 +86,24 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
             onClick={handleDelete}
           >
             Delete
-          </p>
+          </p> */}
+          {/* changed the p tags for the handledetele/handleEdit to buttons */}
+          <button
+            className='font-inter green_gradient cursor-pointer text-sm'
+            onClick={handleEdit}
+          >
+            Edit
+          </button>
+          <button
+            className='font-inter orange_gradient cursor-pointer text-sm'
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PromptCard;
+export default PromptCard
